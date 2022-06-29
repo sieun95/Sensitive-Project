@@ -1,0 +1,50 @@
+include headerMypage
+
+body - 1) sidebar(고정) + 2) contents(가변)
+ (필수)
+ - myPage(기본 profile)
+ - infoModify(내 정보 수정)
+ - mySubs(구독페이지/이시은) => 따로 table 생성 + 연동(Join)
+ - myOrder(주문정보or장바구니/정종찬) => 따로 table 생성 + 연동(Join) (Board List)
+ - qna(Q&A) (Board)
+ - qnaList(Q&A List) (Board List)
+
+ - myPage/infoModify => PK/FK (여유가 된다면 회원정보 자체를 Main PK로 설정 후 myPage를 PK/FK)
+ - qna/qnaList => FK(일단 myPage를 Main PK로 작업 후 그 외 테이블은 FK)
+
+ (선택)
+ - 장바구니(cart)
+ - authentification(내 정보 수정 전 재인증)
+ - 결제 => DB DELETE + Alert
+ - myEvents(이벤트 참여)
+
+include footerMypage
+
+<구독정보 + 구매정보>
+GET "/myorder" : Order 목록 이동
+
+<DB Table column>
+1) 구독
+ - 구독 상품명(세트1/세트2/세트3)
+ - 구성품
+ - 구독 시작날짜
+ - 구독 기간
+
+2) 구매목록
+ - 상품명
+ - 카테고리
+ - 가격
+ - 구매날짜
+
+3) 장바구니(cart)
+ - 상품명
+ - 갯수
+
+<Q&A게시판 Route>
+GET "/myboard", param(int page) : 게시판 목록 이동
+GET "/myboard/:idx" : 상세 게시글 이동
+GET "/myboard/post" : 게시글 작성 페이지 이동
+POST "/myboard/post", body(board) : 게시글 작성
+POST "/myboard/post/:idx" : 게시글 수정 페이지
+PUT "/myboard/post/:idx", body(board) : 게시글 수정
+DELETE "/myboard/post:idx" : 게시글 삭제

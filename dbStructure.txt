@@ -1,0 +1,133 @@
+
+'로그인/회원가입'을 구동하기 위해서 해야할 것.
+
+1. 계정 정보가 들어갈 데이터베이스를 만들어야 합니다.
+
+// 데이터베이스 생성 : orthodox_logreg
+확인 - show databases;
+사용 - use databases;
+
+// 테스트 디비 작성
+create database testmerge
+
+// 계정 테이블 생성
+
+테이블 정보 확인 : show full columns from 테이블이름
+
+CREATE TABLE users (
+  id int(10) unsigned NOT NULL AUTO_INCREMENT,
+  name varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  email varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  password varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  PRIMARY KEY (id)
+ );
+
+
+// mypage 테이블 2 
+이름 mypagesub
+
+create table mypagesub (
+  id varchar(50) NOT NULL,
+  subsname varchar(50) NOT NULL,
+  subsdetail varchar(50) NULL,
+  subsdate date NULL,
+  subsperiod date NULL
+);
+
+// mypage 테이블 3
+이름 mypageitem
+
+create table mypageitem (
+  id varchar(50) NOT NULL,
+  itemname varchar(50) NULL,
+  itemcate varchar(50) NULL,
+  itemprice int(11) NULL,
+  itemdate date NULL
+);
+
+// 구독 테이블(★★★★★시은이 개인 DB. 절대 실사용 하지말 것★★★★★)
+
+create table sub(
+id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+name VARCHAR(255) NOT NULL,
+email VARCHAR(255) NOT NULL,
+createTime datetime default NOW(),
+updateTime datetime default NOW()
+);
+
+더미 데이터 입력
+insert into sub (id, name, email) values ('1', 'testnamesub', 'test@hei.com'); 
+
+
+
+// 상품 테이블
+
+create table product(
+	id int not null auto_increment PRIMARY KEY,
+    name varchar(256) NOT NULL, 
+    category varchar(256) NOT NULL,
+    price varchar(256) NOT NULL,
+    path1 varchar(256) NOT NULL,
+    path2 varchar(256) NOT NULL  
+);
+
+select * from product;
+
+데이터입력
+
+insert into product (name, category, price, path1, path2) values ('체험 세트', '세트', '8900', 'http://127.0.0.1:5500/2nd%20project/Logreg/public/assets/img/trial-set-main-0.png', 'http://127.0.0.1:5500/2nd%20project/Logreg/public/assets/detailimg/trial-set.png');
+insert into product (name, category, price, path1, path2) values ('면도세트 12개입', '면도기', '39900', 'http://127.0.0.1:5500/2nd%20project/Logreg/public/assets/img/12-shaving-set-main-0.png', 'http://127.0.0.1:5500/2nd%20project/Logreg/public/assets/detailimg/12-shaving-set.png');
+insert into product (name, category, price, path1, path2) values ('면도세트 24개입', '면도기', '52430', 'http://127.0.0.1:5500/2nd%20project/Logreg/public/assets/img/24-shaving-set-main-0.png', 'http://127.0.0.1:5500/2nd%20project/Logreg/public/assets/detailimg/24-shaving-set.png');
+insert into product (name, category, price, path1, path2) values ('5중날카트리지 4개입', '면도날', '10000', 'http://127.0.0.1:5500/2nd%20project/Logreg/public/assets/img/cartridge-main-0.png', 'http://127.0.0.1:5500/2nd%20project/Logreg/public/assets/detailimg/cartridge.png');
+insert into product (name, category, price, path1, path2) values ('시카 쉐이빙젤 2.3', '쉐이빙젤', '9900', 'http://127.0.0.1:5500/2nd%20project/Logreg/public/assets/img/gel-main-0.png', 'http://127.0.0.1:5500/2nd%20project/Logreg/public/assets/detailimg/gel.png');
+insert into product (name, category, price, path1, path2) values ('시카 애프터쉐이브 토너 스프레이', '애프터쉐이브', '9900', 'http://127.0.0.1:5500/2nd%20project/Logreg/public/assets/img/toner-main-0.png', 'http://127.0.0.1:5500/2nd%20project/Logreg/public/assets/detailimg/toner.png');
+insert into product (name, category, price, path1, path2) values ('시카 애프터쉐이브 로션', '애프터쉐이브', '9900', 'http://127.0.0.1:5500/2nd%20project/Logreg/public/assets/img/lotion-main-0.png', 'http://127.0.0.1:5500/2nd%20project/Logreg/public/assets/detailimg/lotion.png');
+insert into product (name, category, price, path1, path2) values ('풀케어 세트', '세트', '59800', 'http://127.0.0.1:5500/2nd%20project/Logreg/public/assets/img/full-care-set-main-0.png', 'http://127.0.0.1:5500/2nd%20project/Logreg/public/assets/detailimg/full-care-set.png');
+
+이미지를 띄우려면 product_detail.html, product_list.html 를 띄워놔야 한다. 이미지를 디비에 넣어서 띄우는 거로 디벨롭할 것
+
+
+
+2021-12-11 추가 // 새로 창 띄울 필요없이 바로 이미지 로드 
+
+insert into product (name, category, price, path1, path2) values ('체험 세트', '세트', '8900', './assets/img/trial-set-main-0.png', './assets/detailimg/trial-set.png');
+insert into product (name, category, price, path1, path2) values ('면도세트 12개입', '면도기', '39900', './assets/img/12-shaving-set-main-0.png', './assets/detailimg/12-shaving-set.png');
+insert into product (name, category, price, path1, path2) values ('면도세트 24개입', '면도기', '52430', './assets/img/24-shaving-set-main-0.png', './assets/detailimg/24-shaving-set.png');
+insert into product (name, category, price, path1, path2) values ('5중날카트리지 4개입', '면도날', '10000', './assets/img/cartridge-main-0.png', './assets/detailimg/cartridge.png');
+insert into product (name, category, price, path1, path2) values ('시카 쉐이빙젤 2.3', '쉐이빙젤', '9900', './assets/img/gel-main-0.png', './assets/detailimg/gel.png');
+insert into product (name, category, price, path1, path2) values ('시카 애프터쉐이브 토너 스프레이', '애프터쉐이브', '9900', './assets/img/toner-main-0.png', './assets/detailimg/toner.png');
+insert into product (name, category, price, path1, path2) values ('시카 애프터쉐이브 로션', '애프터쉐이브', '9900', './assets/img/lotion-main-0.png', './assets/detailimg/lotion.png');
+insert into product (name, category, price, path1, path2) values ('풀케어 세트', '세트', '59800', './assets/img/full-care-set-main-0.png', './assets/detailimg/full-care-set.png');
+
+
+
+
+
+
+
+
+
+
+// join 예제
+
+select zero.id, zero.name, zero.age, one.city, one.gender from zero left join one on zero.id = one.id order by zero.id;
+
+결과
++——+———+———+———+————+
+| id | name | age  | city  | gender |
++——+———+———+———+————+
+|  1 | test |   10 | seoul | male   |
++——+———+———+———+————+
+
+
+
+확인 - show tables;
+내용확인 - select * from 테이블명(users)
+
+ 2. 데이터베이스 생성후 /utils/dbConnection.js에서 본인 데이터베이스 접근 정보를 입력해줘야 함(기존에 입력되있는 것은 작성자 jhin93의 정보).
+
+ 3. 터미널의 루트 디렉토리(/orthodox_LogReg)에서 node index.js 를 입력하여 구동.
+
+
+
+
